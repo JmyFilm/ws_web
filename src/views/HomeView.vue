@@ -67,7 +67,7 @@ function toBottom(){
 }
 
 onMounted(() => {
-  s.socket = new WebSocket("ws://34.92.74.238:1234/");
+  s.socket = new WebSocket("wss://34.92.74.238:1234/");
 
   s.socket.addEventListener("message", ({ data }) => {
     addMsg(data)
