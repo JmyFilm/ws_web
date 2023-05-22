@@ -67,9 +67,11 @@ function toBottom(){
 }
 
 onMounted(() => {
-  s.socket = new WebSocket("wss://wss.jmyfilm.com");
+  // s.socket = new WebSocket("wss://wss.jmyfilm.com");
+  s.socket = new WebSocket("ws://localhost:1234/ws");
 
   s.socket.addEventListener("message", ({ data }) => {
+    console.log(data)
     addMsg(data)
   })
 })
