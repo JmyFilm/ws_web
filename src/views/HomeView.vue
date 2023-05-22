@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onMounted, reactive, ref } from 'vue'
-import { NButton, NLayout, NInput, NInputGroup, useMessage, NTag } from 'naive-ui'
+import {  NLayout, NInput, useMessage, NTag } from 'naive-ui'
 const s = reactive({
   socket: null,
   msg: [],
@@ -53,7 +53,7 @@ function addMsg(msg) {
   const rect1 = tag.value.getBoundingClientRect();
   const rect2 = ip.value.getBoundingClientRect();
   const distance = Math.abs(rect1.top - rect2.top);
-  if (distance < 100) {
+  if (distance < 200) {
     toBottom()
   }  
 }
@@ -82,9 +82,8 @@ onMounted(() => {
     <main>
       <div id="chatBox" ref="scrollDiv" class="msg">
         <section v-for="msg in s.msg">
-          <!-- {{ msg }} -->
           <n-tag style="margin-top: 1rem;" class="tag" v-if="msg.type == 'online'" round  type="success">
-             服务器已连接 {{ msg.time.substr(11) }}
+             已就绪 {{ msg.time.substr(11) }}
           </n-tag>
           <n-tag class="tag" v-if="msg.type == 'login'" round  type="info">
              {{ msg.name }} 建立连接  {{ msg.time.substr(11) }}
@@ -114,12 +113,11 @@ onMounted(() => {
       </div>
       <div class="b"></div>
       <div ref="ip" class="ip">
-        <n-input-group class="ip_ng"  @keyup.enter="send">
-          <n-input v-model:value="s.sv"/>
-          <n-button @click="send" :disabled="s.sv.trim() == '' ? true : false">
-            发送
-          </n-button>
-        </n-input-group>
+          <n-input
+          round 
+          class="ip_ng"
+           @keyup.enter="send" 
+            v-model:value="s.sv"/>
       </div>
 
     </main>
@@ -129,7 +127,7 @@ onMounted(() => {
 
 <style scoped>
 main {
-  max-width: 35rem;
+  max-width: 32rem;
   margin: 0 auto;
   padding: 0.5rem 1rem;
 }
@@ -184,13 +182,17 @@ main {
   letter-spacing: 0.5px;
 }
 .ct {
+  color: #777;
   margin-top: 4px;
   margin-bottom: 2px;
   float: right;
   font-size: 10px;
   text-align: right;
+  font-style:italic;
 }
-
+.self .ct {
+  color: #f3f3f3;
+}
 .tag {
   margin-bottom: 1rem;
 }
@@ -206,12 +208,15 @@ section {
   background-color: #FFFFFF;
   height: 3.5rem;
   padding-top: 0.7rem;
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
   bottom: 0rem;
-  width: 35rem;
+  width: 32rem;
 }
-
-@media screen and (max-width: 35rem) {
+.ip_ng {
+  font-size: 16px;
+}
+@media screen and (max-width: 32rem) {
   .ip {
     width: auto;
     right: 0.5rem;
@@ -229,6 +234,9 @@ section {
   .content {
     border: 1px solid #28282C;
     background-color: #28282C;
+  }
+  .ct {
+    color: #999999;
   }
 }
 </style>
