@@ -22,8 +22,6 @@ const s = reactive({
     margin: 0;
   }
   .r {
-    /* min-height: 100vh; */
-    /* border: 1px solid #000; */
-    /* background-color: #054948; */
+    min-height: 100vh;
   }
 </style>
