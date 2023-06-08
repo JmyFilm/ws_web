@@ -70,7 +70,6 @@ onMounted(() => {
   s.socket = new WebSocket("wss://ws.jmyfilm.com");
 
   s.socket.addEventListener("message", ({ data }) => {
-    console.log(data)
     addMsg(data)
   })
 })
